@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контейнеры: верхний и два нижних</title>
+    <link rel="stylesheet" href="static/styles/stINT.css">
+</head>
+
+<body>
+    <div class="meny">
+        <a href="index.html">
+            <h2>← Главное меню</h2>
+        </a>
+    </div>
+
+    <h1>Отражение и преломление</h1>
+
+    <div class="container-wrapper">
+        <div class="top-container">
+            <h2>Интерактив</h2>
+            <div class="sim-layout">
+                <div class="sim-main">
+                    <div class="simulation-container">
+                        <canvas id="refraction-canvas" width="800" height="300"></canvas>
+                        <div class="sim-controls">
+                            <div class="control-group">
+                                <label>Угол падения α (°):</label>
+                                <input type="range" id="incident-angle" min="0" max="90" value="45" step="1">
+                                <span id="incident-angle-val">45</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Среда 1:</label>
+                                <select id="medium1">
+                                    <option value="1.00">Воздух (n = 1.00)</option>
+                                    <option value="1.33">Вода (n = 1.33)</option>
+                                    <option value="1.50">Стекло (n = 1.50)</option>
+                                    <option value="2.42">Алмаз (n = 2.42)</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label>Среда 2:</label>
+                                <select id="medium2">
+                                    <option value="1.00">Воздух (n = 1.00)</option>
+                                    <option value="1.33">Вода (n = 1.33)</option>
+                                    <option value="1.50" selected>Стекло (n = 1.50)</option>
+                                    <option value="2.42">Алмаз (n = 2.42)</option>
+                                </select>
+                            </div>
+                            <div class="checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="show-normal" checked>
+                                    Показать нормаль
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="show-angles" checked>
+                                    Показать углы
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="refraction-results" id="refraction-results">
+                        <h4>Результаты:</h4>
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <span class="result-label">Угол падения α:</span>
+                                <span class="result-value" id="angle-incident">45°</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Угол отражения β:</span>
+                                <span class="result-value" id="angle-reflection">45°</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Угол преломления γ:</span>
+                                <span class="result-value" id="angle-refraction">—</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Относительный показатель n:</span>
+                                <span class="result-value" id="relative-n">—</span>
+                            </div>
+                        </div>
+                        <div class="total-reflection-warning" id="total-reflection" style="display: none;">
+                            ⚠️ Полное внутреннее отражение!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-row">
+            <div class="bottom-container left-container">
+                <h3>Теория</h3>
+                <div class="teoryContainer">
+                    <p>Закон отражения света: луч падающий и отражённый лежат в одной плоскости с перпендикуляром,
+                        проведённым к границе раздела двух сред в точке падения луча. Угол падения a равен углу
+                        отражения b.
+                    </p>
+                    <p>Оптическая плотность среды характеризуется различной скоростью распространения света. </p>
+                    <p>Среда, в которой скорость распространения света меньше, является оптически более плотной средой.
+                    </p>
+                    <p>При переходе из одной среды в другую луч света изменяет направление на границе сред. Это явление
+                        называют преломлением света. </p>
+                    <p>Закон преломления света: лучи падающий, преломлённый и перпендикуляр, проведённый к границе
+                        раздела
+                        двух сред в точке падения луча, лежат в одной плоскости. Отношение синуса угла падения к синусу
+                        угла
+                        преломления есть величина постоянная для двух сред.</p>
+                </div>
+            </div>
+            <div class="bottom-container right-container">
+                <h3>Задачи из открытого банка ФИПИ</h3>
+                <div id="taskContainer">
+
+                    <script>
+                        const tasks = [
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "Столица России?", a: "москва" },
+                            { q: "5 × 3 = ?", a: "15" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" },
+                            { q: "2 + 2 = ?", a: "4" }
+                        ];
+
+                        let current = 0;
+
+                        function showTask() {
+                            const task = tasks[current];
+                            const container = document.getElementById('taskContainer');
+
+                            let html = `
+            <h3 style="color: black; ">Вопрос ${current + 1} из ${tasks.length}</h3>
+            <p style = "color: black;">${task.q}</p>
+        `;
+
+                            if (task.img) {
+                                html += `<img src="${task.img}" width="400"  style="margin:15px 0;"><br>`;
+                            }
+
+                            html += `
+            <input type="text" id="userAnswer" placeholder="Ответ">
+            <button onclick="check()">Проверить</button>
+            <div id="result" style="margin-top:10px;"></div>
+        `;
+
+                            container.innerHTML = html;
+                        }
+
+                        function check() {
+                            const answer = document.getElementById('userAnswer').value.toLowerCase().trim();
+                            const result = document.getElementById('result');
+
+                            if (answer === tasks[current].a.toLowerCase()) {
+                                result.innerHTML = "<span style='color:green'>Верно!</span>";
+                                setTimeout(() => {
+                                    current++;
+                                    if (current < tasks.length) {
+                                        showTask();
+                                    } else {
+                                        document.getElementById('taskContainer').innerHTML =
+                                            "<h2>Тест завершен!</h2>";
+                                    }
+                                }, 1000);
+                            } else {
+                                result.innerHTML = "<span style='color:red'> Неверно, попробуйте еще раз</span>";
+                            }
+                        }
+
+                        // Запускаем
+                        showTask();
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/styles/IntOtr.js"></script>
+</body>
+
+</html>
